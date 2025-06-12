@@ -14,7 +14,7 @@ const supabase = createClient(
 );
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000; // ✅ force numeric type
 
 app.use(cors());
 app.use(express.json());
@@ -25,7 +25,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Skip2Love backend is running!');
 });
 
-// ✅ Fixed Supabase route
+// Example Supabase route
 app.get('/users', async (req: Request, res: Response) => {
   try {
     const { data, error } = await supabase.from('users').select('*');
@@ -36,7 +36,7 @@ app.get('/users', async (req: Request, res: Response) => {
   }
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`🚀 Server is running on port ${port}`);
+// ✅ Start server
+app.listen(PORT, "127.0.0.1", () => {
+  console.log(`🚀 Server is running on http://127.0.0.1:${PORT}`);
 });
